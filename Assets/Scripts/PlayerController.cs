@@ -24,16 +24,15 @@ public class PlayerController : MonoBehaviour
 
     void Movimiento()
     {
-        float movX = Input.GetAxis("Horizontal"); // A/D o Flechas Izq/Der
-        float movZ = Input.GetAxis("Vertical");   // W/S o Flechas Arr/Abajo
+        float movX = Input.GetAxis("Horizontal"); 
+        float movZ = Input.GetAxis("Vertical");  
 
-        Vector3 movimiento = transform.right * movX + transform.forward * movZ;
+        Vector3 movimiento = (transform.right * movX + transform.forward * movZ).normalized;
         controller.Move(movimiento * velocidad * Time.deltaTime);
-
-        // Aplicar gravedad
+    
         if (controller.isGrounded)
         {
-            velocidadVertical.y = -0.5f; // Pequeña fuerza hacia abajo para evitar bugs
+            velocidadVertical.y = -0.5f; 
             if (Input.GetButtonDown("Jump"))
             {
                 velocidadVertical.y = fuerzaSalto;

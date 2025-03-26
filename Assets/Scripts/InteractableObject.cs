@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class InteractableObject : MonoBehaviour
+public class InteractableObject : MonoBehaviour, IInteractable
 {
     [Header("Prefabs")]
     [SerializeField] private GameObject cuboBlancoPrefab; 
@@ -46,7 +46,7 @@ public class InteractableObject : MonoBehaviour
 
         if (spawnPoint == null)
         {
-            Debug.LogWarning("SpawnPoint no asignado, se usar· la posiciÛn del objeto");
+            Debug.LogWarning("SpawnPoint no asignado, se usar√° la posici√≥n del objeto");    
             spawnPoint = transform;
         }
     }
@@ -59,7 +59,7 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    private void ProcesarInteraccion()
+    public void ProcesarInteraccion()
     {
         if (playerInventory == null) return;
 
@@ -112,7 +112,7 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    private void MostrarMensaje(string texto, bool temporal = false)
+    public void MostrarMensaje(string texto, bool temporal = false)
     {
         if (mensajeUI == null) return;
 
@@ -205,6 +205,7 @@ public class InteractableObject : MonoBehaviour
             MostrarMensaje("Presiona E para recoger");
         }
     }
+
     public bool PuedeInteractuar()
     {
         return objetoDisponible && cuboBlancoPrefab != null;

@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private Transform objetivo;                     
 
-    [Header("Posición")]
+    [Header("PosiciÃ³n")]
     [SerializeField] private Vector3 offset = new Vector3(10f, 10f, -10f); 
     [SerializeField] private bool seguirRotacionY = false;          
     [SerializeField] private float alturaMinima = 1.0f;
@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private bool usarSuavizado = true;             
     [SerializeField] private float velocidadSuavizado = 5.0f;       
 
-    [Header("Limites de Cámara")]
+    [Header("Limites de CÃ¡mara")]
     [SerializeField] private bool usarLimites = false;               
     [SerializeField] private Vector2 limitesX = new Vector2(-50f, 50f); 
     [SerializeField] private Vector2 limitesZ = new Vector2(-50f, 50f); 
