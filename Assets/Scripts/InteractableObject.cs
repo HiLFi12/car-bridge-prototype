@@ -15,8 +15,9 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     [Header("Efectos")]
     [SerializeField] private AudioClip sonidoRecoger; 
-    [SerializeField] private ParticleSystem efectoRecoger; 
+    [SerializeField] private ParticleSystem efectoRecoger;
 
+    [SerializeField] private int cubeOrder = 1;
     private bool enRango = false;
     private PlayerInventory playerInventory;
     private bool objetoDisponible = true;
@@ -49,6 +50,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
             Debug.LogWarning("SpawnPoint no asignado, se usará la posición del objeto");    
             spawnPoint = transform;
         }
+        ActivarInteraccion();
     }
 
     void Update()
@@ -97,6 +99,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
         {
             OnInteraccionCompletada(this);
         }
+
     }
 
     private void ReproducirEfectos()

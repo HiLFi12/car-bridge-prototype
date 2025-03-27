@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 18560417083422748}
   - component: {fileID: -218827992139995311}
   m_Layer: 0
-  m_Name: Cubo
+  m_Name: Cubo 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4d1111e14b013f84a954f2e577ea7488, type: 2}
+  - {fileID: 2100000, guid: 800ec33a9c0fe564b9b72cdd97dc8d9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f93c1b8458271842bad330f2672e2a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 1
+  order: 3
 --- !u!1 &8531646003596332696
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4d1111e14b013f84a954f2e577ea7488, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

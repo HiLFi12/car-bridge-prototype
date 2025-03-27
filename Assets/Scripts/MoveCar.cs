@@ -3,7 +3,7 @@ using UnityEngine;
 public class MoveCar : MonoBehaviour
 {
     [SerializeField] private float velocidad = 5.0f;
-    [SerializeField] private bool moverHaciaDerecha = true;
+    [SerializeField] public bool moverHaciaDerecha = true;
 
     void Update()
     {
