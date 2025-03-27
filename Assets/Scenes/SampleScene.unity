@@ -769,8 +769,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mano: {fileID: 2006281080}
-  spawnPuente: {fileID: 515072204}
-  destinoPuente: {fileID: 947608875}
   cuboPuentePrefab: {fileID: 8501359119430614425, guid: 4c980b76c770854449860e0ade7eb50d, type: 3}
   materialNormal: {fileID: 2100000, guid: 92d795eec77b91e49aabda70a66200a0, type: 2}
   materialActivo: {fileID: 2100000, guid: 4d1111e14b013f84a954f2e577ea7488, type: 2}
@@ -1549,7 +1547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afec49e1f74aa23478872145410e1ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 0.1
+  velocidad: 12
   moverHaciaDerecha: 1
 --- !u!65 &1145668944
 BoxCollider:
@@ -1984,6 +1982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6976a40a41a0e3041bb880ec5fe35727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puentes:
+  - {fileID: 2018880628}
 --- !u!4 &1839056178
 Transform:
   m_ObjectHideFlags: 0
@@ -2029,6 +2029,59 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 470521802}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2018880627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2018880629}
+  - component: {fileID: 2018880628}
+  m_Layer: 0
+  m_Name: BridgeBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2018880628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018880627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b1515b41f279648a256b9207307e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terreno1: {fileID: 515072204}
+  terreno2: {fileID: 947608875}
+  cuboPuentePrefab: {fileID: 8501359119430614425, guid: 4c980b76c770854449860e0ade7eb50d, type: 3}
+  "tama\xF1oCubo": 1
+  ajusteAltura: 0
+  usarCurvaAltura: 0
+  alturaMaximaCurva: 0.2
+  notificarAlManager: 1
+  indicePuente: 0
+--- !u!4 &2018880629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018880627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.703851, y: 17.5568, z: -12.640955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2090601032
 GameObject:
@@ -2130,7 +2183,7 @@ Transform:
   m_GameObject: {fileID: 2090601032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.56514, y: 0.29, z: 10.5}
+  m_LocalPosition: {x: -14.13, y: 0.29, z: 10.5}
   m_LocalScale: {x: 1.3156, y: 1, z: 2.3653}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2158,3 +2211,4 @@ SceneRoots:
   - {fileID: 947608875}
   - {fileID: 860499780}
   - {fileID: 1839056178}
+  - {fileID: 2018880629}
