@@ -17,9 +17,15 @@ public class InteractableObject : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip sonidoRecoger; 
     [SerializeField] private ParticleSystem efectoRecoger;
 
+    [Header("Inputs")]
+    [SerializeField] private KeyCode teclaInteraccionJugador1 = KeyCode.E;
+    [SerializeField] private KeyCode teclaInteraccionJugador2 = KeyCode.U;
+
     [SerializeField] private int cubeOrder = 1;
     private bool enRango = false;
     private PlayerInventory playerInventory;
+    private Player2Inventory player2Inventory;
+    private bool esJugador2 = false;
     private bool objetoDisponible = true;
     private Coroutine mensajeTemporalCoroutine;
 
@@ -55,7 +61,11 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     void Update()
     {
-        if (enRango && objetoDisponible && Input.GetKeyDown(KeyCode.E))
+        if (!enRango || !objetoDisponible) return;
+
+        KeyCode teclaPulsar = esJugador2 ? teclaInteraccionJugador2 : teclaInteraccionJugador1;
+        
+        if (Input.GetKeyDown(teclaPulsar))
         {
             ProcesarInteraccion();
         }
@@ -63,15 +73,31 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     public void ProcesarInteraccion()
     {
-        if (playerInventory == null) return;
-
-        if (!playerInventory.TieneCubo())
+        if (esJugador2)
         {
-            EntregarCuboAlJugador();
+            if (player2Inventory == null) return;
+
+            if (!player2Inventory.TieneCubo())
+            {
+                EntregarCuboAlJugador2();
+            }
+            else
+            {
+                MostrarMensaje("Ya tienes un cubo", true);
+            }
         }
         else
         {
-            MostrarMensaje("Ya tienes un cubo", true);
+            if (playerInventory == null) return;
+
+            if (!playerInventory.TieneCubo())
+            {
+                EntregarCuboAlJugador();
+            }
+            else
+            {
+                MostrarMensaje("Ya tienes un cubo", true);
+            }
         }
     }
 
@@ -99,7 +125,32 @@ public class InteractableObject : MonoBehaviour, IInteractable
         {
             OnInteraccionCompletada(this);
         }
+    }
 
+    private void EntregarCuboAlJugador2()
+    {
+        if (cuboBlancoPrefab == null || player2Inventory == null) return;
+
+        if (spawnPoint != null)
+        {
+            player2Inventory.RecogerCubo(cuboBlancoPrefab);
+        }
+        else
+        {
+            player2Inventory.RecogerCubo(cuboBlancoPrefab);
+        }
+
+        if (mensajeUI != null)
+        {
+            mensajeUI.SetActive(false);
+        }
+
+        ReproducirEfectos();
+
+        if (OnInteraccionCompletada != null)
+        {
+            OnInteraccionCompletada(this);
+        }
     }
 
     private void ReproducirEfectos()
@@ -151,20 +202,38 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        // Comprobar si el objeto tiene PlayerInventory o Player2Inventory para identificar jugadores
+        PlayerInventory playerInv = other.GetComponent<PlayerInventory>();
+        Player2Inventory player2Inv = other.GetComponent<Player2Inventory>();
+        
+        if (playerInv != null || player2Inv != null)
         {
             enRango = true;
-            playerInventory = other.GetComponent<PlayerInventory>();
+            
+            // Determinar qué tipo de jugador es
+            if (playerInv != null)
+            {
+                playerInventory = playerInv;
+                esJugador2 = false;
+            }
+            else
+            {
+                player2Inventory = player2Inv;
+                esJugador2 = true;
+            }
 
             if (objetoDisponible)
             {
-                if (playerInventory != null && playerInventory.TieneCubo())
+                KeyCode teclaMostrar = esJugador2 ? teclaInteraccionJugador2 : teclaInteraccionJugador1;
+                
+                if ((esJugador2 && player2Inventory != null && player2Inventory.TieneCubo()) ||
+                   (!esJugador2 && playerInventory != null && playerInventory.TieneCubo()))
                 {
                     MostrarMensaje("Ya tienes un cubo");
                 }
                 else
                 {
-                    MostrarMensaje("Presiona E para recoger");
+                    MostrarMensaje($"Presiona {teclaMostrar} para recoger");
                 }
             }
 
@@ -177,7 +246,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        // Comprobar si el objeto tiene PlayerInventory o Player2Inventory para identificar jugadores
+        if (other.GetComponent<PlayerInventory>() != null || other.GetComponent<Player2Inventory>() != null)
         {
             enRango = false;
 
@@ -185,7 +255,15 @@ public class InteractableObject : MonoBehaviour, IInteractable
             {
                 mensajeUI.SetActive(false);
             }
-            playerInventory = null;
+            
+            if (esJugador2)
+            {
+                player2Inventory = null;
+            }
+            else
+            {
+                playerInventory = null;
+            }
         }
     }
 
@@ -205,7 +283,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
         if (enRango && mensajeUI != null)
         {
-            MostrarMensaje("Presiona E para recoger");
+            KeyCode teclaMostrar = esJugador2 ? teclaInteraccionJugador2 : teclaInteraccionJugador1;
+            MostrarMensaje($"Presiona {teclaMostrar} para recoger");
         }
     }
 
